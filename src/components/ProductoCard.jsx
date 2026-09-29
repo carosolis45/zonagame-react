@@ -1,0 +1,41 @@
+// ============================================================
+// COMPONENTE PRODUCTO CARD
+// Ubicación: src/components/ProductoCard.jsx
+// ============================================================
+
+function ProductoCard({ producto, alAgregarAlCarrito }) {
+    return (
+        <div className="col-12 col-md-6 col-lg-4">
+            <div className="card h-100 shadow-sm">
+                <img
+                    src={producto.imagen}
+                    className="card-img-top"
+                    alt={producto.nombre}
+                />
+                <div className="card-body d-flex flex-column">
+                    <h5 className="card-title">{producto.nombre}</h5>
+                    <p className="card-text text-muted">{producto.descripcion}</p>
+
+                    {/* Precio normal tachado */}
+                    <p className="text-muted mb-1">
+                        <s>${producto.precioNormal.toLocaleString('es-CL')}</s>
+                    </p>
+
+                    {/* Precio de oferta */}
+                    <p className="precio mt-auto">
+                        💰 ${producto.precioOferta.toLocaleString('es-CL')} CLP
+                    </p>
+
+                    <button
+                        className="btn btn-primary-custom w-100"
+                        onClick={() => alAgregarAlCarrito(producto)}
+                    >
+                        Agregar al carrito 🛒
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default ProductoCard;

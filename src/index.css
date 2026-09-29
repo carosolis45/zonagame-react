@@ -1,0 +1,274 @@
+/* ============================================================
+   HOJA DE ESTILOS GLOBAL - ZONAGAME REACT
+   Ubicación: src/index.css
+   ============================================================ */
+
+/* ========================================
+   RESET Y BOX-SIZING
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ========================================
+   ESTILOS GENERALES
+   ======================================== */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    color: #2d3748;
+    line-height: 1.6;
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.hero-section {
+    background: linear-gradient(135deg, #6b46c1, #805ad5);
+    color: white;
+    padding: 60px 0;
+    border-radius: 0 0 30px 30px;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* ========================================
+   NAVBAR
+   ======================================== */
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* ========================================
+   CARDS DE PRODUCTOS
+   ======================================== */
+
+.card {
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    border-radius: 16px 16px 0 0;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+.precio {
+    color: #6b46c1;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+/* ========================================
+   BOTONES PERSONALIZADOS
+   ======================================== */
+
+.btn-primary-custom {
+    background-color: #6b46c1;
+    border-color: #6b46c1;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-primary-custom:hover {
+    background-color: #805ad5;
+    border-color: #805ad5;
+    color: white;
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+}
+
+/* ========================================
+   TÍTULOS DE SECCIÓN
+   ======================================== */
+
+.section-title {
+    color: #2d3748;
+    font-weight: 700;
+    margin-bottom: 30px;
+    border-bottom: 4px solid #6b46c1;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* ========================================
+   MODAL DEL CARRITO
+   ======================================== */
+
+.modal-content {
+    border-radius: 16px;
+    border: none;
+}
+
+.modal-header {
+    border-radius: 16px 16px 0 0;
+}
+
+#contenido-carrito table {
+    width: 100%;
+}
+
+#contenido-carrito th {
+    color: #6b46c1;
+    border-bottom: 2px solid #6b46c1;
+    padding: 10px;
+    text-align: left;
+}
+
+#contenido-carrito td {
+    padding: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.btn-eliminar {
+    background: transparent;
+    border: none;
+    color: #e53e3e;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+}
+
+.btn-eliminar:hover {
+    transform: scale(1.2);
+}
+
+/* ========================================
+   FOOTER ZONAGAME
+   ======================================== */
+
+.footer-zonagame {
+    background: #1a202c;
+    color: #e2e8f0;
+    padding: 50px 0 30px;
+    border-top: 4px solid #6b46c1;
+    margin-top: 60px;
+}
+
+.footer-titulo {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #6b46c1;
+    display: inline-block;
+}
+
+.footer-texto {
+    color: #a0aec0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+.footer-lista {
+    margin-top: 15px;
+}
+
+.footer-lista li {
+    margin-bottom: 10px;
+}
+
+.footer-lista a {
+    color: #b794f4;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.footer-lista a:hover {
+    color: #d6bcfa;
+    padding-left: 5px;
+    text-decoration: underline;
+}
+
+.footer-redes {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.footer-redes a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(107, 70, 193, 0.3);
+    color: #b794f4;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-redes a:hover {
+    background: #6b46c1;
+    color: #ffffff;
+    transform: translateY(-3px);
+}
+
+.footer-copyright {
+    color: #718096;
+    font-size: 0.85rem;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #2d3748;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+/* MÓVIL */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    .card-img-top {
+        height: 160px;
+    }
+    .section-title {
+        font-size: 1.4rem;
+    }
+    .footer-zonagame {
+        text-align: center;
+        padding: 30px 15px 20px;
+    }
+    .footer-titulo {
+        margin-top: 20px;
+    }
+    .footer-redes {
+        justify-content: center;
+    }
+}
