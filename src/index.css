@@ -1,6 +1,7 @@
 /* ============================================================
    HOJA DE ESTILOS GLOBAL - ZONAGAME REACT
    Ubicación: src/index.css
+   Semana 8 - Con notificación flotante
    ============================================================ */
 
 /* ========================================
@@ -247,6 +248,35 @@ body {
 }
 
 /* ========================================
+   NOTIFICACIÓN FLOTANTE (MEJORA 4)
+   ======================================== */
+
+.notificacion-flotante {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #6b46c1;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    font-weight: 600;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ========================================
    RESPONSIVE
    ======================================== */
 
@@ -270,5 +300,12 @@ body {
     }
     .footer-redes {
         justify-content: center;
+    }
+    .notificacion-flotante {
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+        text-align: center;
+        font-size: 0.9rem;
     }
 }

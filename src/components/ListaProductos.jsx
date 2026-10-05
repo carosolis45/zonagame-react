@@ -5,7 +5,7 @@
 
 import ProductoCard from './ProductoCard';
 
-function ListaProductos({ productos, alAgregarAlCarrito }) {
+function ListaProductos({ productos, alAgregarAlCarrito, carrito }) {
     return (
         <section className="container mt-5" id="productos">
             <h2 className="section-title">🌟 Productos Destacados 🌟</h2>
@@ -19,6 +19,7 @@ function ListaProductos({ productos, alAgregarAlCarrito }) {
                         key={producto.id}
                         producto={producto}
                         alAgregarAlCarrito={alAgregarAlCarrito}
+                        carrito={carrito}
                     />
                 ))}
             </div>

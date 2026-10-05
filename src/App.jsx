@@ -1,27 +1,90 @@
 // ============================================================
 // COMPONENTE PRINCIPAL - APP
 // Ubicación: src/App.jsx
+// Semana 8 - localStorage + useEffect + Renderizado Condicional
+// + Secciones Nosotros y Contacto
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import ListaProductos from './components/ListaProductos';
 import Carrito from './components/Carrito';
-import productos from './data/productos';
+import productosData from './data/productos';
 import './App.css';
+
+// Clave para guardar el carrito en localStorage
+const CARRITO_KEY = 'zonagame_carrito';
 
 function App() {
     // ============================================================
-    // ESTADOS CON useState
+    // 1. ESTADOS CON useState
     // ============================================================
 
-    const [carrito, setCarrito] = useState([]);
+    // Carrito: recupera del localStorage al iniciar
+    const [carrito, setCarrito] = useState(() => {
+        try {
+            const guardado = localStorage.getItem(CARRITO_KEY);
+            return guardado ? JSON.parse(guardado) : [];
+        } catch (error) {
+            console.error('❌ Error al cargar carrito:', error);
+            return [];
+        }
+    });
+
+    // Estado para mostrar/ocultar el modal del carrito
     const [mostrarCarrito, setMostrarCarrito] = useState(false);
 
+    // Estado para los productos cargados dinámicamente
+    const [productos, setProductos] = useState([]);
+
+    // Estado para saber si está cargando
+    const [cargando, setCargando] = useState(true);
+
+    // Estado para la notificación flotante
+    const [notificacion, setNotificacion] = useState(null);
+
     // ============================================================
-    // FUNCIONES DEL CARRITO
+    // 2. useEffect: Cargar productos simulando una API
     // ============================================================
 
+    useEffect(() => {
+        console.log('📦 Cargando productos...');
+
+        const timer = setTimeout(() => {
+            setProductos(productosData);
+            setCargando(false);
+            console.log('✅ Productos cargados:', productosData.length);
+        }, 1500);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    // ============================================================
+    // 3. useEffect: Guardar carrito en localStorage
+    // ============================================================
+
+    useEffect(() => {
+        try {
+            localStorage.setItem(CARRITO_KEY, JSON.stringify(carrito));
+            console.log('💾 Carrito guardado:', carrito.length, 'productos');
+        } catch (error) {
+            console.error('❌ Error al guardar carrito:', error);
+        }
+    }, [carrito]);
+
+    // ============================================================
+    // 4. FUNCIONES
+    // ============================================================
+
+    // Función para mostrar notificación flotante
+    const mostrarNotificacion = (mensaje) => {
+        setNotificacion(mensaje);
+        setTimeout(() => {
+            setNotificacion(null);
+        }, 3000);
+    };
+
+    // Agregar producto al carrito
     const agregarAlCarrito = (producto) => {
         const existente = carrito.find((item) => item.id === producto.id);
 
@@ -36,24 +99,37 @@ function App() {
         } else {
             setCarrito([...carrito, { ...producto, cantidad: 1 }]);
         }
+
+        // Mostrar notificación
+        mostrarNotificacion(`✅ ${producto.nombre} agregado al carrito`);
     };
 
+    // Eliminar producto del carrito
     const eliminarDelCarrito = (id) => {
+        const producto = carrito.find((item) => item.id === id);
         setCarrito(carrito.filter((item) => item.id !== id));
+
+        // Mostrar notificación
+        if (producto) {
+            mostrarNotificacion(`🗑️ ${producto.nombre} eliminado`);
+        }
     };
 
+    // Vaciar carrito completo
     const vaciarCarrito = () => {
         setCarrito([]);
         setMostrarCarrito(false);
+        mostrarNotificacion('🗑️ Carrito vaciado');
     };
 
+    // Calcular cantidad total
     const cantidadTotal = carrito.reduce(
         (suma, item) => suma + item.cantidad,
         0
     );
 
     // ============================================================
-    // RENDERIZADO (JSX)
+    // 5. RENDERIZADO
     // ============================================================
 
     return (
@@ -73,11 +149,144 @@ function App() {
                 </div>
             </section>
 
-            {/* LISTA DE PRODUCTOS */}
-            <ListaProductos
-                productos={productos}
-                alAgregarAlCarrito={agregarAlCarrito}
-            />
+            {/* RENDERIZADO CONDICIONAL: spinner o productos */}
+            {cargando ? (
+                <section className="container mt-5 text-center py-5">
+                    <div
+                        className="spinner-border text-primary"
+                        role="status"
+                        style={{ width: '3rem', height: '3rem' }}
+                    >
+                        <span className="visually-hidden">Cargando...</span>
+                    </div>
+                    <p className="mt-3">⏳ Cargando productos...</p>
+                </section>
+            ) : (
+                <ListaProductos
+                    productos={productos}
+                    alAgregarAlCarrito={agregarAlCarrito}
+                    carrito={carrito}
+                />
+            )}
+
+            {/* ============================================================
+                SECCIÓN NOSOTROS
+                ============================================================ */}
+            <section className="container mt-5" id="nosotros">
+                <div className="row g-4 align-items-center">
+                    <div className="col-12 col-lg-6">
+                        <h2 className="section-title">📖 Sobre ZonaGame</h2>
+                        <p>
+                            Somos una tienda especializada en videojuegos,
+                            consolas y accesorios. Nuestro objetivo es ofrecer
+                            la mejor experiencia de compra para los gamers de Chile.
+                        </p>
+                        <ul className="list-unstyled">
+                            <li>
+                                <i className="bi bi-check-circle-fill text-success"></i>{" "}
+                                Envíos a todo Chile
+                            </li>
+                            <li>
+                                <i className="bi bi-check-circle-fill text-success"></i>{" "}
+                                Los mejores precios del mercado
+                            </li>
+                            <li>
+                                <i className="bi bi-check-circle-fill text-success"></i>{" "}
+                                Atención personalizada
+                            </li>
+                            <li>
+                                <i className="bi bi-check-circle-fill text-success"></i>{" "}
+                                Garantía en todos los productos
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="col-12 col-lg-6">
+                        <img
+                            src="https://wallpapercave.com/wp/wp11579600.jpg"
+                            alt="Are you Player - ZonaGame"
+                            className="img-fluid rounded-4 shadow"
+                            style={{ maxHeight: '450px', width: 'auto' }}
+                        />
+                    </div>
+                </div>
+            </section>
+
+            {/* ============================================================
+                SECCIÓN CONTACTO
+                ============================================================ */}
+            <section className="container mt-5" id="contacto">
+                <div className="row g-4">
+                    <div className="col-12 col-md-6">
+                        <h2 className="section-title">📬 Contáctanos</h2>
+                        <p className="text-muted">
+                            Déjanos tu mensaje y te responderemos a la brevedad.
+                        </p>
+                        <form>
+                            <div className="mb-3">
+                                <label className="form-label">Nombre</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Tu nombre"
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Email</label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    placeholder="tu@email.com"
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Mensaje</label>
+                                <textarea
+                                    className="form-control"
+                                    rows="3"
+                                    placeholder="Escribe tu mensaje..."
+                                ></textarea>
+                            </div>
+                            <button
+                                type="submit"
+                                className="btn btn-primary-custom w-100"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    mostrarNotificacion('✅ ¡Mensaje enviado!');
+                                }}
+                            >
+                                Enviar mensaje <i className="bi bi-send"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div className="col-12 col-md-6">
+                        <h2 className="section-title">📍 Ubicación</h2>
+                        <p>
+                            <i className="bi bi-geo-alt"></i> Av. Videojuegoscarolina 123, Santiago
+                        </p>
+                        <p>
+                            <i className="bi bi-envelope"></i>{" "}
+                            <a href="mailto:info@zonagame.cl">info@zonagame.cl</a>
+                        </p>
+                        <p>
+                            <i className="bi bi-telephone"></i> +56 9 1234 5678
+                        </p>
+                        <div className="mt-4">
+                            <a href="#" className="btn btn-outline-primary me-2">
+                                <i className="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" className="btn btn-outline-primary me-2">
+                                <i className="bi bi-twitter-x"></i>
+                            </a>
+                            <a href="#" className="btn btn-outline-primary me-2">
+                                <i className="bi bi-instagram"></i>
+                            </a>
+                            <a href="#" className="btn btn-outline-primary">
+                                <i className="bi bi-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* MODAL DEL CARRITO */}
             <Carrito
@@ -87,6 +296,13 @@ function App() {
                 alEliminar={eliminarDelCarrito}
                 alVaciar={vaciarCarrito}
             />
+
+            {/* NOTIFICACIÓN FLOTANTE (renderizado condicional) */}
+            {notificacion && (
+                <div className="notificacion-flotante">
+                    {notificacion}
+                </div>
+            )}
 
             {/* FOOTER */}
             <footer className="footer-zonagame mt-5">
@@ -105,6 +321,7 @@ function App() {
                             <ul className="list-unstyled footer-lista">
                                 <li><a href="#inicio">Inicio</a></li>
                                 <li><a href="#productos">Productos</a></li>
+                                <li><a href="#nosotros">Nosotros</a></li>
                                 <li><a href="#contacto">Contacto</a></li>
                             </ul>
                         </div>

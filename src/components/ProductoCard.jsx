@@ -1,9 +1,13 @@
 // ============================================================
 // COMPONENTE PRODUCTO CARD
 // Ubicación: src/components/ProductoCard.jsx
+// Con renderizado condicional del botón
 // ============================================================
 
-function ProductoCard({ producto, alAgregarAlCarrito }) {
+function ProductoCard({ producto, alAgregarAlCarrito, carrito }) {
+    // Verificamos si este producto ya está en el carrito
+    const estaEnCarrito = carrito.some((item) => item.id === producto.id);
+
     return (
         <div className="col-12 col-md-6 col-lg-4">
             <div className="card h-100 shadow-sm">
@@ -26,12 +30,22 @@ function ProductoCard({ producto, alAgregarAlCarrito }) {
                         💰 ${producto.precioOferta.toLocaleString('es-CL')} CLP
                     </p>
 
-                    <button
-                        className="btn btn-primary-custom w-100"
-                        onClick={() => alAgregarAlCarrito(producto)}
-                    >
-                        Agregar al carrito 🛒
-                    </button>
+                    {/* RENDERIZADO CONDICIONAL: botón cambia según el estado */}
+                    {estaEnCarrito ? (
+                        <button
+                            className="btn btn-success w-100"
+                            disabled
+                        >
+                            ✅ En el carrito
+                        </button>
+                    ) : (
+                        <button
+                            className="btn btn-primary-custom w-100"
+                            onClick={() => alAgregarAlCarrito(producto)}
+                        >
+                            Agregar al carrito 🛒
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
