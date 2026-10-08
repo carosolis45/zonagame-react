@@ -1,61 +1,68 @@
 # 🎮 ZonaGame - Tienda de Videojuegos (React)
 
-## Actividad Sumativa - Semana 8
-### Mejorando funcionalidades clave en el eCommerce con React
+## EFT - Evaluación Final Transversal
+### Desarrollo de un sitio web para tienda de videojuegos con HTML, CSS, JavaScript, Bootstrap 5 y React
 
 ---
 
-## Descripción
+## Descripción del Proyecto
 
-Aplicación de eCommerce para una tienda de videojuegos llamada **"ZonaGame"**, desarrollada con **React** y **Vite**. Implementa componentes funcionales, Hooks (`useState` y `useEffect`), renderizado condicional, persistencia de datos con `localStorage` y manejo de efectos secundarios.
+Aplicación web completa de eCommerce para una tienda de videojuegos llamada **"ZonaGame"**, desarrollada como proyecto final del curso de Frontend. Implementa las siguientes tecnologías y funcionalidades:
+
+- **HTML5** semántico
+- **CSS3** personalizado + **Bootstrap 5**
+- **JavaScript** con React
+- **Hooks** (`useState` y `useEffect`)
+- **Renderizado condicional**
+- **Persistencia** con `localStorage`
+- **Filtrado** por categoría
+- **Validación** de formularios
+- **Eliminación dinámica** de productos
 
 ---
 
-## Funcionalidades implementadas
+## Funcionalidades Implementadas
 
-### Gestión de estados con useState
-- **Catálogo de productos:** cargado dinámicamente
-- **Carrito de compras:** agregar, eliminar, vaciar
-- **Modal del carrito:** mostrar/ocultar
-- **Estado de carga:** spinner mientras carga
-- **Notificaciones:** mensajes flotantes de confirmación
+### Catálogo de productos
+- 6 videojuegos con: nombre, precio normal, precio oferta, descripción, imagen y categoría
+- Carga dinámica con **useEffect** (simula una API)
+- Spinner de carga mientras se obtienen los datos
 
-### Efectos secundarios con useEffect
-- **Carga simulada de productos** desde `productos.js` (con spinner)
-- **Persistencia automática del carrito** en localStorage
-- **Guardado automático** cuando el carrito cambia
+### Filtro por categoría
+- Botones: **Todos**, **Aventura**, **RPG**, **Sandbox**
+- Filtra productos en tiempo real
+
+### Carrito de compras
+- Agregar productos con un clic
+- Eliminar productos individualmente
+- Vaciar el carrito completo
+- **Contador dinámico** en la navbar
+- **Cálculo automático** del total
+- **Persistencia** con localStorage
+
+### Eliminar productos del catálogo
+- Botón ❌ en cada tarjeta para eliminar productos
+
+### Formulario de contacto con validación
+- Campos: Nombre, Email, Mensaje
+- Validación en tiempo real
+- Mensajes de error visuales
+- Notificación al enviar exitosamente
 
 ### Renderizado condicional
-- **Spinner de carga** mientras se cargan los productos
-- **Botón del producto cambia:**
-  - 🛒 "Agregar al carrito" (si NO está en el carrito)
-  - ✅ "En el carrito" (si YA está)
-- **Mensaje de carrito vacío** cuando no hay productos
-- **Notificación flotante** al agregar/eliminar productos
+- Spinner de carga
+- Botón "Agregar al carrito" → "✅ En el carrito"
+- Mensaje cuando el carrito está vacío
+- Notificación flotante al agregar/eliminar
 
-### Persistencia con localStorage
-- El carrito se guarda automáticamente
-- Al recargar la página, el carrito se mantiene
-- Los productos en el carrito se recuperan al abrir la app
-
-### Secciones adicionales
-- **Hero** con presentación de la tienda
-- **Productos Destacados** con carga dinámica
-- **Nosotros** con información de la tienda
-- **Contacto** con formulario y datos
-- **Footer** con enlaces y redes sociales
-
-### Componentes React creados
-| Componente | Descripción |
-|-----------|-------------|
-| `Navbar.jsx` | Barra de navegación con contador dinámico |
-| `ProductoCard.jsx` | Tarjeta con botón condicional |
-| `ListaProductos.jsx` | Grid de todos los productos |
-| `Carrito.jsx` | Modal con renderizado condicional |
+### Diseño responsivo
+- Bootstrap 5
+- Adaptable a móvil, tablet y escritorio
+- CSS Grid y Flexbox
 
 ---
 
-## Estructura del proyecto
+## Estructura del Proyecto
 
 ```text
 zonagame-react/
@@ -63,6 +70,9 @@ zonagame-react/
 ├── package.json
 ├── vite.config.js
 ├── README.md
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
 ├── public/
 │   └── assets/
 │       └── imagenes/
@@ -73,20 +83,17 @@ zonagame-react/
 │           ├── pokemon.jpg
 │           └── kirby.jpg
 ├── capturas/
-│   ├── semana8_captura1_localStorage.png
-│   ├── semana8_captura2_spinner.png
-│   ├── semana8_captura3_boton_verde.png
-│   ├── semana8_captura4_notificacion.png
-│   ├── semana8_captura5_carrito_vacio.png
-│   ├── semana8_captura6_consola.png
-│   ├── semana8_captura7_movil.png
-│   └── semana8_captura_web_completa.png
+│   ├── eft_captura_filtro.png
+│   ├── eft_captura_formulario.png
+│   └── eft_captura_eliminar.png
 └── src/
     ├── components/
     │   ├── Navbar.jsx
     │   ├── ProductoCard.jsx
     │   ├── ListaProductos.jsx
-    │   └── Carrito.jsx
+    │   ├── Filtro.jsx
+    │   ├── Carrito.jsx
+    │   └── FormularioContacto.jsx
     ├── data/
     │   └── productos.js
     ├── App.jsx
@@ -97,57 +104,14 @@ zonagame-react/
 
 ---
 
-## Capturas de pantalla
-
-### Persistencia con localStorage
-![localStorage](capturas/semana8_captura1_localStorage.png)
-
-### Spinner de carga (useEffect)
-![Spinner](capturas/semana8_captura2_spinner.png)
-
-### Botón condicional "En el carrito"
-![Botón verde](capturas/semana8_captura3_boton_verde.png)
-
-### Notificación flotante
-![Notificación](capturas/semana8_captura4_notificacion.png)
-
-### Carrito vacío (mensaje)
-![Carrito vacío](capturas/semana8_captura5_carrito_vacio.png)
-
-### Consola sin errores
-![Consola](capturas/semana8_captura6_consola.png)
-
-### Vista responsive (móvil)
-![Vista móvil](capturas/semana8_captura7_movil.png)
-
-### Página completa
-![Página completa](capturas/semana8_captura_web_completa.png)
-
----
-
-## Tecnologías utilizadas
-
-| Tecnología | Descripción |
-|------------|-------------|
-| **React 19** | Biblioteca principal para la interfaz |
-| **Vite** | Empaquetador y servidor de desarrollo |
-| **JavaScript (ES6+)** | Lógica del carrito y estados |
-| **useState** | Manejo de estados |
-| **useEffect** | Efectos secundarios (carga, persistencia) |
-| **localStorage** | Persistencia del carrito |
-| **Bootstrap 5** | Estilos y componentes visuales |
-| **CSS3** | Estilos personalizados |
-| **GitHub Pages** | Publicación del sitio en línea |
-
----
-
-## Cómo ejecutar el proyecto
+## Instrucciones de Instalación
 
 ### Requisitos previos
-- Node.js v18 o superior
-- npm (viene con Node.js)
+- **Node.js** v18 o superior
+- **npm** (viene con Node.js)
+- Un navegador web moderno
 
-### Instalación
+### Pasos de instalación
 
 ```bash
 # 1. Clonar el repositorio
@@ -163,7 +127,7 @@ npm install
 npm run dev
 ```
 
-Abrir en el navegador: `http://localhost:5173/`
+Abrir en el navegador: `http://localhost:5173/zonagame-react/`
 
 ### Comandos disponibles
 
@@ -175,6 +139,37 @@ Abrir en el navegador: `http://localhost:5173/`
 
 ---
 
+## Capturas de Pantalla
+
+### Filtro por categoría funcionando
+![Filtro](capturas/eft_captura_filtro.png)
+
+### Formulario con validación
+![Formulario](capturas/eft_captura_formulario.png)
+
+### Botón eliminar producto
+![Eliminar](capturas/eft_captura_eliminar.png)
+
+---
+
+## Tecnologías Utilizadas
+
+| Tecnología | Descripción |
+|------------|-------------|
+| **HTML5** | Estructura semántica |
+| **CSS3** | Estilos personalizados |
+| **Bootstrap 5** | Framework responsivo |
+| **JavaScript ES6+** | Lógica de la aplicación |
+| **React 19** | Biblioteca de componentes |
+| **Vite** | Empaquetador y servidor de desarrollo |
+| **useState** | Manejo de estados |
+| **useEffect** | Efectos secundarios |
+| **localStorage** | Persistencia del carrito |
+| **GitHub Pages** | Despliegue en línea |
+| **GitHub Actions** | CI/CD automatizado |
+
+---
+
 ## Enlaces
 
 - **Repositorio:** https://github.com/carosolis45/zonagame-react
@@ -182,14 +177,14 @@ Abrir en el navegador: `http://localhost:5173/`
 
 ---
 
-## Datos del estudiante
+## Datos del Estudiante
 
 - **Nombre:** Carolina Solís
 - **Curso:** Frontend I
-- **Semana:** 8 - Sumativa
-- **Fecha:** 4 Octubre 2026
+- **Evaluación:** EFT - Evaluación Final Transversal
+
 
 ---
 
-*Actividad realizada para la asignatura de Frontend I - Sumativa (Semana 8)*
+*Proyecto realizado para la asignatura de Frontend I - EFT*
 

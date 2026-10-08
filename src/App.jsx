@@ -1,14 +1,16 @@
 // ============================================================
 // COMPONENTE PRINCIPAL - APP
 // Ubicación: src/App.jsx
-// Semana 8 - localStorage + useEffect + Renderizado Condicional
-// + Secciones Nosotros y Contacto
+// Semana 8 + EFT - localStorage + useEffect + Renderizado Condicional
+// + Secciones Nosotros, Contacto con Formulario validado
+// + Filtro por categoría + Eliminar producto del catálogo
 // ============================================================
 
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import ListaProductos from './components/ListaProductos';
 import Carrito from './components/Carrito';
+import FormularioContacto from './components/FormularioContacto';
 import productosData from './data/productos';
 import './App.css';
 
@@ -122,6 +124,16 @@ function App() {
         mostrarNotificacion('🗑️ Carrito vaciado');
     };
 
+    // Eliminar producto del catálogo (de la lista de productos)
+    const eliminarProductoDelCatalogo = (id) => {
+        const producto = productos.find((p) => p.id === id);
+        setProductos(productos.filter((p) => p.id !== id));
+
+        if (producto) {
+            mostrarNotificacion(`🗑️ ${producto.nombre} eliminado del catálogo`);
+        }
+    };
+
     // Calcular cantidad total
     const cantidadTotal = carrito.reduce(
         (suma, item) => suma + item.cantidad,
@@ -166,6 +178,7 @@ function App() {
                     productos={productos}
                     alAgregarAlCarrito={agregarAlCarrito}
                     carrito={carrito}
+                    alEliminarProducto={eliminarProductoDelCatalogo}
                 />
             )}
 
@@ -212,7 +225,7 @@ function App() {
             </section>
 
             {/* ============================================================
-                SECCIÓN CONTACTO
+                SECCIÓN CONTACTO CON FORMULARIO VALIDADO
                 ============================================================ */}
             <section className="container mt-5" id="contacto">
                 <div className="row g-4">
@@ -221,42 +234,8 @@ function App() {
                         <p className="text-muted">
                             Déjanos tu mensaje y te responderemos a la brevedad.
                         </p>
-                        <form>
-                            <div className="mb-3">
-                                <label className="form-label">Nombre</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Tu nombre"
-                                />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Email</label>
-                                <input
-                                    type="email"
-                                    className="form-control"
-                                    placeholder="tu@email.com"
-                                />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Mensaje</label>
-                                <textarea
-                                    className="form-control"
-                                    rows="3"
-                                    placeholder="Escribe tu mensaje..."
-                                ></textarea>
-                            </div>
-                            <button
-                                type="submit"
-                                className="btn btn-primary-custom w-100"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    mostrarNotificacion('✅ ¡Mensaje enviado!');
-                                }}
-                            >
-                                Enviar mensaje <i className="bi bi-send"></i>
-                            </button>
-                        </form>
+                        {/* COMPONENTE FORMULARIO CON VALIDACIÓN */}
+                        <FormularioContacto alEnviarMensaje={mostrarNotificacion} />
                     </div>
                     <div className="col-12 col-md-6">
                         <h2 className="section-title">📍 Ubicación</h2>

@@ -309,3 +309,73 @@ body {
         font-size: 0.9rem;
     }
 }
+
+/* ========================================
+   FILTRO POR CATEGORÍA
+   ======================================== */
+
+.filtro-categorias {
+    padding: 10px 0;
+}
+
+.filtro-categorias .btn {
+    border-radius: 25px;
+    padding: 8px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.filtro-categorias .btn-primary-custom {
+    background-color: #6b46c1;
+    border-color: #6b46c1;
+    color: white;
+}
+
+.filtro-categorias .btn-primary-custom:hover {
+    background-color: #805ad5;
+    border-color: #805ad5;
+}
+
+.filtro-categorias .btn-outline-secondary {
+    color: #6b46c1;
+    border-color: #6b46c1;
+    background-color: white;
+}
+
+.filtro-categorias .btn-outline-secondary:hover {
+    background-color: #6b46c1;
+    color: white;
+}
+
+/* ========================================
+   BOTÓN ELIMINAR PRODUCTO (EFT)
+   ======================================== */
+
+.btn-eliminar-producto {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #e53e3e;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+    color: #e53e3e;
+}
+
+.btn-eliminar-producto:hover {
+    background: #e53e3e;
+    color: white;
+    transform: scale(1.15);
+    border-color: #e53e3e;
+}
